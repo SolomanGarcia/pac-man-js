@@ -74,11 +74,10 @@ function control(e) {
       console.log("up");
       break;
     case 37:
-      console.log("left");
       if (pacmanCurrentIndex % width !== 0) pacmanCurrentIndex -= 1;
       break;
     case 39:
-      console.log("right");
+      if (pacmanCurrentIndex % width !== 0) pacmanCurrentIndex += 1;
       break;
   }
   squares[pacmanCurrentIndex].classList.add("pacman");
