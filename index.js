@@ -65,6 +65,7 @@ let pacmanCurrentIndex = 490;
 squares[pacmanCurrentIndex].classList.add("pacman");
 
 function control(e) {
+  squares[pacmanCurrentIndex].classList.remove("pacman");
   switch (e.keyCode) {
     case 40:
       console.log("down");
@@ -74,10 +75,12 @@ function control(e) {
       break;
     case 37:
       console.log("left");
+      if (pacmanCurrentIndex % width !== 0) pacmanCurrentIndex -= 1;
       break;
     case 39:
       console.log("right");
       break;
   }
+  squares[pacmanCurrentIndex].classList.add("pacman");
 }
 document.addEventListener("keyup", control);
