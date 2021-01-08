@@ -112,6 +112,8 @@ function control(e) {
   squares[pacmanCurrentIndex].classList.add("pacman");
   pacDotEaten();
   powerPelletEaten();
+  checkForWin();
+  checkForGameOver();
 }
 document.addEventListener("keyup", control);
 
@@ -225,5 +227,17 @@ function checkForGameOver() {
     document.removeEventListener("keyup", control);
     //tell user the game is over
     scoreDisplay.innerHTML = "You LOSE";
+  }
+}
+
+//check for win
+function checkForWin() {
+  if (score === 274) {
+    //stop each ghost
+    ghosts.forEach((ghost) => clearInterval(ghost.timerId));
+    //remove the eventListener for the control function
+    document.removeEventListener("keyup", control);
+    //tell our user we have won
+    scoreDisplay.innerHTML = "You WON!";
   }
 }
