@@ -141,9 +141,10 @@ const ghosts = [
 ];
 
 // add ghost to grid
-ghosts.forEach((ghost) =>
-  squares[ghost.startIndex].classList.add(ghost.className)
-);
+ghosts.forEach((ghost) => {
+  squares[ghost.currentIndex].classList.add(ghost.className);
+  squares[ghost.currentIndex].classList.add("ghost");
+});
 
 ghosts.forEach((ghost) => moveGhost(ghost));
 
@@ -152,8 +153,16 @@ function moveGhost(ghost) {
   let direction = directions[Math.floor(Math.random() * directions.length)];
 
   ghost.timerId = setInterval(function () {
-    squares[ghost.currentIndex].classList.remove(ghost.className);
-    ghost.currentIndex += direction;
-    squares[ghost.currentIndex].classList.add(ghost.className);
+    if (
+      !squares[ghost.currentIndex + direction].classList.contains("wall") &&
+      !squares[ghost.currentIndex + direction].classList.contains("ghost")
+    ) {
+      squares[ghost.currentIndex].classList.remove(ghost.className);
+
+      ghost.currentIndex += direction;
+
+      squares[ghost.currentIndex].classList.add(ghost.className);
+      squares[ghost.currentIndex].classList.add("ghost");
+    } else direction = directions[Math.floor(Math.random() * directions.length)];
   }, ghost.speed);
 }
